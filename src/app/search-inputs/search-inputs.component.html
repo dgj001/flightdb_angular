@@ -1,0 +1,28 @@
+<form>
+	<div class="form-group">
+		<h5>Departure Airports:</h5>
+		<div class="custom-control custom-checkbox" *ngFor="let condition of departureConditions; let i = index">
+			<input
+				type="checkbox"
+				class="custom-control-input"
+				id="type_check{{i}}"
+				(click)="onDepartureClick($event, condition)"
+				name="{{condition.fieldName}}"
+				[(ngModel)]="condition.value">
+			<label class="custom-control-label" for="type_check{{i}}">{{condition.fieldName}}</label>
+		</div>
+	</div>
+	<div class="form-group">
+		<h5>Tail Numbers:</h5>
+		<div class="custom-control custom-checkbox" *ngFor="let condition of tailConditions; let i = index">
+			<input
+				type="checkbox"
+				class="custom-control-input"
+				id="tail_check{{i}}"
+				(click)="onTailNumberClick($event, condition)"
+				name="{{condition.fieldName}}"
+				[(ngModel)]="condition.value">
+			<label class="custom-control-label" for="tail_check{{i}}">{{condition.fieldName}}</label>
+		</div>
+	</div>
+</form>

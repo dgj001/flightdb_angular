@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col-md-12">
+      <p>Showing {{loaded}} of {{total}} results</p>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-hover table-sm">
+      <thead class="thead-light">
+        <th style="display: none">ID</th>
+        <th>Departure</th>
+        <th>Arrival</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Tail Number</th>
+      </thead>
+      <tbody>
+      <tr flight-row *ngFor="let flight of flights" style="cursor: pointer;" (click)="onFlightClick(flight)" [class.selected]="flight.selected">
+        <td style="display: none">{{flight.id}}</td>
+        <td>{{flight.departureAirport}}</td>
+        <td>{{flight.arrivalAirport}}</td>
+        <td>{{flight.startDateTime | date:"yyyy-MM-dd" }}</td>
+        <td>{{flight.startDateTime | date:"HH:mm"}}</td>
+        <td>{{flight.tailNumber}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="row justify-content-md-center" *ngIf="loaded < total">
+  <button class="btn btn-info btn-sm" (click)="onMoreClick()">Load More</button>
+</div>

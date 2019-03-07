@@ -1,0 +1,44 @@
+<div *ngIf="flight !== undefined">
+  <div class="row">
+    <div class="col-md-6 col-lg-4 col-xl-3">
+      <table class="table">
+        <tr>
+          <td>Departure</td>
+          <td>{{flight.departureAirport}}</td>
+        </tr>
+        <tr>
+          <td>Arrival</td>
+          <td>{{flight.arrivalAirport}}</td>
+        </tr>
+        <tr>
+          <td>Tail Number</td>
+          <td>{{flight.tailNumber}}</td>
+        </tr>
+        <tr>
+          <td>Date</td>
+          <td>{{flight.startDateTime | date:"yyyy-MM-dd" }}</td>
+        </tr>
+        <tr>
+          <td>Time</td>
+          <td>{{flight.startDateTime | date:"HH:mm"}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <agm-map [latitude]="flight.records[0].latitude" [longitude]="flight.records[0].longitude">
+        <agm-polyline>
+          <agm-polyline-point *ngFor="let record of flight.records" [latitude]="record.latitude" [longitude]="record.longitude"></agm-polyline-point>
+        </agm-polyline>
+      </agm-map>
+    </div>
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <canvas #canvas id="canvas"></canvas>
+  </div>
+</div>
