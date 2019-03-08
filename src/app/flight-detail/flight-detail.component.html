@@ -11,10 +11,6 @@
           <td>{{flight.arrivalAirport}}</td>
         </tr>
         <tr>
-          <td>Tail Number</td>
-          <td>{{flight.tailNumber}}</td>
-        </tr>
-        <tr>
           <td>Date</td>
           <td>{{flight.startDateTime | date:"yyyy-MM-dd" }}</td>
         </tr>
@@ -22,10 +18,12 @@
           <td>Time</td>
           <td>{{flight.startDateTime | date:"HH:mm"}}</td>
         </tr>
+        <tr>
+          <td>Tail Number</td>
+          <td>{{flight.tailNumber}}</td>
+        </tr>
       </table>
     </div>
-  </div>
-  <div class="row">
     <div class="col">
       <agm-map [latitude]="flight.records[0].latitude" [longitude]="flight.records[0].longitude">
         <agm-polyline>
@@ -34,11 +32,18 @@
       </agm-map>
     </div>
   </div>
-
 </div>
 
+<div class="row py-3">
+  <div class="col"></div>
+</div>
+
+<!-- 
 <div class="row">
-  <div class="col-12">
-    <canvas #canvas id="canvas"></canvas>
+  <div class="col-md-9 offset-md-2">
+      <div class="chart-container" style="position: relative; height:40vh; width:80vw">
+        <canvas #canvas id="canvas"></canvas>
+      </div>
   </div>
 </div>
+ -->

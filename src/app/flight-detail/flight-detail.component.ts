@@ -16,20 +16,15 @@ interface ResampleResult {
 })
 export class FlightDetailComponent implements OnInit {
   @ViewChild('canvas') canvasRef: ElementRef;
-  latitude = 36.128;
-  longitude = -86.679;
-  latA = 51.678418;
-  lngA = 7.809007;
-  latB = 51.689418;
-  lngB = 7.900007;
-
+ 
   flight: Flight;
   id: number;
-
   chart = undefined;
 
-  constructor(private flightService: FlightService,
-    private route: ActivatedRoute) { }
+  constructor(
+    private flightService: FlightService,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
     this.route.params.subscribe(
@@ -38,7 +33,7 @@ export class FlightDetailComponent implements OnInit {
         this.flightService.fetchFlight(this.id).subscribe(
           (flight: Flight) => {
             this.flight = flight;
-            this.loadChart();
+            //this.loadChart();
           }
         );
       }
@@ -66,6 +61,9 @@ export class FlightDetailComponent implements OnInit {
         ]
       },
       options: {
+        responsive: true,
+        animation: false,
+        // maintainAspectRatio: true,
         elements: {
           point:{
               radius: 0
