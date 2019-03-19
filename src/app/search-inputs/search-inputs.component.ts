@@ -63,27 +63,27 @@ export class SearchInputsComponent implements OnInit, OnDestroy {
   onDepartureClick(event: any, condition: Condition) {
     const target = (<HTMLInputElement>event.target);
     if (target.checked) {
-      this.searchParamService.addCondition('departureAirport', condition.fieldName);
+      this.searchParamService.addCondition('departureAirport', condition.fieldValue);
     } else {
-      this.searchParamService.removeCondition('departureAirport', condition.fieldName);
+      this.searchParamService.removeCondition('departureAirport', condition.fieldValue);
     }
   }
 
   onArrivalClick(event: any, condition: Condition) {
     const target = (<HTMLInputElement>event.target);
     if (target.checked) {
-      this.searchParamService.addCondition('arrivalAirport', condition.fieldName);
+      this.searchParamService.addCondition('arrivalAirport', condition.fieldValue);
     } else {
-      this.searchParamService.removeCondition('arrivalAirport', condition.fieldName);
+      this.searchParamService.removeCondition('arrivalAirport', condition.fieldValue);
     }
   }
 
   onTailNumberClick(event: any, condition: Condition) {
     const target = (<HTMLInputElement>event.target);
     if (target.checked) {
-      this.searchParamService.addCondition('tailNumber', condition.fieldName);
+      this.searchParamService.addCondition('tailNumber', condition.fieldValue);
     } else {
-      this.searchParamService.removeCondition('tailNumber', condition.fieldName);
+      this.searchParamService.removeCondition('tailNumber', condition.fieldValue);
     }
   }
 }

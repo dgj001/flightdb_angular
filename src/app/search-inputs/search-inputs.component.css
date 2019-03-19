@@ -1,0 +1,8 @@
+.twoColumnList {
+    column-count: 2;
+    padding-left: 8px;
+}
+.oneColumnList {
+    column-count: 1;
+    padding-left: 8px;
+}

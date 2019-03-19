@@ -33,7 +33,7 @@ export class FlightDetailComponent implements OnInit {
         this.flightService.fetchFlight(this.id).subscribe(
           (flight: Flight) => {
             this.flight = flight;
-            //this.loadChart();
+            // this.loadChart();
           }
         );
       }
@@ -62,7 +62,6 @@ export class FlightDetailComponent implements OnInit {
       },
       options: {
         responsive: true,
-        animation: false,
         // maintainAspectRatio: true,
         elements: {
           point:{

@@ -4,7 +4,7 @@ import { HttpParams } from '@angular/common/http';
 import { Condition } from '../shared/condition';
 
 @Injectable()
-export class SearchParamService {    
+export class SearchParamService {
     private conditions = Array<Condition>();
 
     private params: HttpParams = new HttpParams();
@@ -17,33 +17,38 @@ export class SearchParamService {
         return this.searchParamsSubject.asObservable();
     }
 
-    addCondition(field: string, value: Object) {
+    addCondition(fieldName: string, fieldValue: string) {
         for (let i = 0; i < this.conditions.length; i++) {
-            let item = this.conditions[i];
-            if (item.fieldName === field && item.value === value) {
+            const item = this.conditions[i];
+            if (item.fieldName === fieldName && item.fieldValue === fieldValue) {
                 return;
             }
         }
 
-        this.conditions.push({ fieldName: field, value: value});
+        this.conditions.push({
+            fieldName: fieldName,
+            fieldValue: fieldValue,
+            count: undefined,
+            value: undefined
+        });
         this.computeParams();
     }
 
-    removeCondition(field: string, value: Object) {        
+    removeCondition(fieldName: string, fieldValue: string) {
         for (let i = 0; i < this.conditions.length; i++) {
-            let item = this.conditions[i];
-            if (item.fieldName === field && item.value === value) {
+            const item = this.conditions[i];
+            if (item.fieldName === fieldName && item.fieldValue === fieldValue) {
                 this.conditions.splice(i, 1);
                 this.computeParams();
                 return;
             }
         }
     }
-    
+
     private computeParams() {
         this.params = new HttpParams();
         this.conditions.forEach((item: Condition) => {
-            this.params = this.params.append(item.fieldName, item.value.toString());
+            this.params = this.params.append(item.fieldName, item.fieldValue);
         });
         this.searchParamsSubject.next(this.params);
     }

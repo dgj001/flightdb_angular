@@ -1,20 +1,30 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Condition } from '../shared/condition';
+import { AppSettings } from './app-settings';
 
 @Injectable()
 export class TailNumberService {
-    private tail_url = "//localhost:8081/api/flights/tail_numbers";
+    private tail_url = `${AppSettings.SERVER_API_BASE_URL}/groupings/tail_numbers`;
     private tailConditions = Array<Condition>();
     private tailNumberSubject = new BehaviorSubject(this.tailConditions);
 
     constructor(private http: HttpClient) {
-        this.http.get<any>(this.tail_url)
+        let params: HttpParams = new HttpParams();
+        params = params.append('page', '0');
+        params = params.append('size', '5');
+        params = params.append('sort', 'count,desc');
+        this.http.get<any>(this.tail_url, {params})
             .subscribe(response => {
                 this.tailConditions = [];
-                response.forEach((item: string) => {                    
-                    this.tailConditions.push({ fieldName: item, value: false});
+                response.forEach((item: Condition) => {
+                    this.tailConditions.push({
+                        fieldName: item.fieldName,
+                        fieldValue: item.fieldValue,
+                        count: item.count,
+                        value: false
+                    });
                 });
                 this.tailNumberSubject.next(this.tailConditions);
             });
