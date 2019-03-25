@@ -4,7 +4,7 @@ import { Flight } from '../shared/flight';
 import { SearchResult } from '../shared/search-result';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { SearchParamService } from './search-param.service';
-import { AppSettings } from './app-settings';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class FlightService {
@@ -28,13 +28,13 @@ export class FlightService {
                 alreadyFetched = true;
             });
 
-        if (alreadyFetched == false) {
+        if (alreadyFetched === false) {
             this.fetchFlights();
         }
     }
 
     fetchFlight(id: number) {
-        const url = `${AppSettings.SERVER_API_BASE_URL}/flights/${id}`;
+        const url = `${environment.baseUrl}/flights/${id}`;
         return this.http.get<Flight>(url);
     }
 
@@ -52,7 +52,7 @@ export class FlightService {
         this.pageNumber = page;
         let params = this.searchParams;
         params = this.appendPageParams(params);
-        return this.http.get<SearchResult>(`${AppSettings.SERVER_API_BASE_URL}/flights/search`, {params})
+        return this.http.get<SearchResult>(`${environment.baseUrl}/flights/search`, {params})
             .subscribe(response => {
                 this.total = response.count;
                 if (append) {

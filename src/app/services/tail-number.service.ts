@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Condition } from '../shared/condition';
-import { AppSettings } from './app-settings';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable()
 export class TailNumberService {
-    private tail_url = `${AppSettings.SERVER_API_BASE_URL}/groupings/tail_numbers`;
+    private tail_url = `${environment.baseUrl}/groupings/tail_numbers`;
     private tailConditions = Array<Condition>();
     private tailNumberSubject = new BehaviorSubject(this.tailConditions);
 

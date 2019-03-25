@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { Condition } from '../shared/condition';
-import { AppSettings } from './app-settings';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class DeparturesService {
-    private url = `${AppSettings.SERVER_API_BASE_URL}/groupings/departure_airports`;
+    private url = `${environment.baseUrl}/groupings/departure_airports`;
     private conditions = Array<Condition>();
     private conditionSubject = new BehaviorSubject(this.conditions);
 
