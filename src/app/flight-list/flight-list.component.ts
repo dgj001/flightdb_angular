@@ -10,21 +10,21 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./flight-list.component.css']
 })
 export class FlightListComponent implements OnInit, OnDestroy {
-  flights = [];  
+  flights = [];
   flightsSub: Subscription;
   loaded: number;
   loadedSubs: Subscription;
   total: number;
   totalSubs: Subscription;
-  
+
   constructor(private flightService: FlightService,
-              private routerService: Router) { 
+              private routerService: Router) {
   }
 
   ngOnInit() {
     this.flightsSub = this.flightService.getFlights().subscribe(
-      flights => this.flights = flights 
-    );        
+      flights => this.flights = flights
+    );
 
     this.loadedSubs = this.flightService.getLoaded().subscribe(
       count => this.loaded = count
@@ -41,7 +41,7 @@ export class FlightListComponent implements OnInit, OnDestroy {
     this.totalSubs.unsubscribe();
   }
 
-  onFlightClick(flight: Flight) {    
+  onFlightClick(flight: Flight) {
     this.routerService.navigate(['details', flight.id]);
   }
 
