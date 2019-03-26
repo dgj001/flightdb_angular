@@ -3,6 +3,7 @@ import { Flight } from '../shared/flight';
 import { Chart } from 'chart.js';
 import { FlightService } from '../services/flight.service';
 import { ActivatedRoute, Params } from '@angular/router';
+import { FlightData } from '../shared/flight-data';
 
 interface ResampleResult {
   data: Array<any>;
@@ -16,8 +17,9 @@ interface ResampleResult {
 })
 export class FlightDetailComponent implements OnInit {
   @ViewChild('canvas') canvasRef: ElementRef;
- 
+
   flight: Flight;
+  records: Array<FlightData>;
   id: number;
   chart = undefined;
 
@@ -30,12 +32,14 @@ export class FlightDetailComponent implements OnInit {
     this.route.params.subscribe(
       (params: Params) => {
         this.id = +params['id'];
-        this.flightService.fetchFlight(this.id).subscribe(
-          (flight: Flight) => {
-            this.flight = flight;
-            // this.loadChart();
-          }
-        );
+
+        this.flightService.fetchFlightWithoutRecords(this.id).subscribe((withoutData: Flight) => {
+          this.flight = withoutData;
+          console.log(this.flight);
+          this.flightService.fetchFlightWithRecords(this.id).subscribe((withData: Flight) => {
+            this.records = withData.records;
+          });
+        });
       }
     );
   }

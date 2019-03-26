@@ -12,8 +12,4 @@ export class Flight {
 
     // client
     selected: boolean;
-
-    getDisplayDate() {
-        return "foo";
-    }
 }

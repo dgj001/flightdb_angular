@@ -1,6 +1,6 @@
-<div *ngIf="flight !== undefined">
-  <div class="row">
-    <div class="col-md-6 col-lg-4 col-xl-3">
+<div class="row">
+  <div class="col-md-6 col-lg-4 col-xl-3">
+    <div *ngIf="flight !== undefined">
       <table class="table">
         <tr>
           <td>Departure</td>
@@ -24,21 +24,25 @@
         </tr>
       </table>
     </div>
-    <div class="col">
-      <agm-map [latitude]="flight.records[0].latitude" [longitude]="flight.records[0].longitude">
+  </div>
+  <div class="col">
+    <div *ngIf="records === undefined">
+      <p>Loading...</p>
+    </div>
+    <div *ngIf="records !== undefined">
+      <agm-map [latitude]="records[0].latitude" [longitude]="records[0].longitude">
         <agm-polyline>
-          <agm-polyline-point *ngFor="let record of flight.records" [latitude]="record.latitude" [longitude]="record.longitude"></agm-polyline-point>
+          <agm-polyline-point *ngFor="let record of records" [latitude]="record.latitude" [longitude]="record.longitude"></agm-polyline-point>
         </agm-polyline>
       </agm-map>
     </div>
   </div>
 </div>
 
+<!-- 
 <div class="row py-3">
   <div class="col"></div>
 </div>
-
-<!-- 
 <div class="row">
   <div class="col-md-9 offset-md-2">
       <div class="chart-container" style="position: relative; height:40vh; width:80vw">

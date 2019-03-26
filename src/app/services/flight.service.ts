@@ -33,7 +33,12 @@ export class FlightService {
         }
     }
 
-    fetchFlight(id: number) {
+    fetchFlightWithoutRecords(id: number) {
+        const url = `${environment.baseUrl}/flights/${id}/no_records`;
+        return this.http.get<Flight>(url);
+    }
+
+    fetchFlightWithRecords(id: number) {
         const url = `${environment.baseUrl}/flights/${id}`;
         return this.http.get<Flight>(url);
     }
