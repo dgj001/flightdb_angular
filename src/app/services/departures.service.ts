@@ -11,6 +11,7 @@ export class DeparturesService {
     private conditionSubject = new BehaviorSubject(this.conditions);
 
     constructor(private http: HttpClient) {
+        console.log('dep_url: ' + this.url);
         let params: HttpParams = new HttpParams();
         params = params.append('page', '0');
         params = params.append('size', '5');

@@ -24,7 +24,7 @@ export class SearchParamService {
                 return;
             }
         }
-
+        console.log(fieldName, fieldValue);
         this.conditions.push({
             fieldName: fieldName,
             fieldValue: fieldValue,

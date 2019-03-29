@@ -5,6 +5,7 @@ import { SearchResult } from '../shared/search-result';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { SearchParamService } from './search-param.service';
 import { environment } from '../../environments/environment';
+import { FlightDataResult } from '../shared/flight-data-result';
 
 @Injectable()
 export class FlightService {
@@ -34,13 +35,13 @@ export class FlightService {
     }
 
     fetchFlightWithoutRecords(id: number) {
-        const url = `${environment.baseUrl}/flights/${id}/no_records`;
+        const url = `${environment.baseUrl}/flights/${id}`;
         return this.http.get<Flight>(url);
     }
 
     fetchFlightWithRecords(id: number) {
-        const url = `${environment.baseUrl}/flights/${id}`;
-        return this.http.get<Flight>(url);
+        const url = `${environment.baseUrl}/flights/${id}/flight_data/10`;
+        return this.http.get<FlightDataResult>(url);
     }
 
     fetchFlights() {

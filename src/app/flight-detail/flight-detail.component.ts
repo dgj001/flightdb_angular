@@ -4,6 +4,7 @@ import { Chart } from 'chart.js';
 import { FlightService } from '../services/flight.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { FlightData } from '../shared/flight-data';
+import { FlightDataResult } from '../shared/flight-data-result';
 
 interface ResampleResult {
   data: Array<any>;
@@ -19,7 +20,10 @@ export class FlightDetailComponent implements OnInit {
   @ViewChild('canvas') canvasRef: ElementRef;
 
   flight: Flight;
-  records: Array<FlightData>;
+  flightDataResult: FlightDataResult;
+  mapCenterLat: number;
+  mapCenterLng: number;
+
   id: number;
   chart = undefined;
 
@@ -35,13 +39,20 @@ export class FlightDetailComponent implements OnInit {
 
         this.flightService.fetchFlightWithoutRecords(this.id).subscribe((withoutData: Flight) => {
           this.flight = withoutData;
-          console.log(this.flight);
-          this.flightService.fetchFlightWithRecords(this.id).subscribe((withData: Flight) => {
-            this.records = withData.records;
+          this.flightService.fetchFlightWithRecords(this.id).subscribe((result: FlightDataResult) => {
+            console.log('numRecords: ' + result.numRecords);
+            this.flightDataResult = result;
+            this.computeMapCenter();
           });
         });
       }
     );
+  }
+
+  computeMapCenter() {
+    const fdr = this.flightDataResult;
+    this.mapCenterLat = fdr.minLat + ((fdr.maxLat - fdr.minLat) / 2);
+    this.mapCenterLng = fdr.minLng + ((fdr.maxLng - fdr.minLng) / 2);
   }
 
   loadChart() {

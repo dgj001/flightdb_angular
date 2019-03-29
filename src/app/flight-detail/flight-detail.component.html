@@ -25,14 +25,19 @@
       </table>
     </div>
   </div>
-  <div class="col">
-    <div *ngIf="records === undefined">
-      <p>Loading...</p>
+  <div class="col align-self-center" align="center">
+    <div *ngIf="flightDataResult === undefined">      
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
     </div>
-    <div *ngIf="records !== undefined">
-      <agm-map [latitude]="records[0].latitude" [longitude]="records[0].longitude">
+    <div *ngIf="flightDataResult !== undefined">
+      <agm-map [latitude]="mapCenterLat" [longitude]="mapCenterLng">
         <agm-polyline>
-          <agm-polyline-point *ngFor="let record of records" [latitude]="record.latitude" [longitude]="record.longitude"></agm-polyline-point>
+          <agm-polyline-point *ngFor="let record of flightDataResult.records" 
+            [latitude]="record.latitude" 
+            [longitude]="record.longitude">
+          </agm-polyline-point>
         </agm-polyline>
       </agm-map>
     </div>

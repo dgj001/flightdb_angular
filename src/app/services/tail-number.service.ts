@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Condition } from '../shared/condition';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class TailNumberService {
@@ -11,6 +11,7 @@ export class TailNumberService {
     private tailNumberSubject = new BehaviorSubject(this.tailConditions);
 
     constructor(private http: HttpClient) {
+        console.log('tail_url: ' + this.tail_url);
         let params: HttpParams = new HttpParams();
         params = params.append('page', '0');
         params = params.append('size', '5');
