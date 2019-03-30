@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-6 col-lg-4 col-xl-3">
     <div *ngIf="flight !== undefined">
-      <table class="table">
+      <table class="table table-dark mt-3">
         <tr>
           <td>Departure</td>
           <td>{{flight.departureAirport}}</td>
@@ -25,14 +25,16 @@
       </table>
     </div>
   </div>
-  <div class="col align-self-center" align="center">
+  <div class="col align-self-center mt-3" align="center">
     <div *ngIf="flightDataResult === undefined">      
       <div class="spinner-border" role="status">
         <span class="sr-only">Loading...</span>
       </div>
     </div>
     <div *ngIf="flightDataResult !== undefined">
-      <agm-map [latitude]="mapCenterLat" [longitude]="mapCenterLng">
+      <agm-map [latitude]="mapCenterLat" [longitude]="mapCenterLng" [fitBounds]="true">
+        <agm-marker [latitude]="departureLat" [longitude]="departureLon" [agmFitBounds]="true"></agm-marker>
+        <agm-marker [latitude]="arrivalLat" [longitude]="arrivalLon" [agmFitBounds]="true"></agm-marker>
         <agm-polyline>
           <agm-polyline-point *ngFor="let record of flightDataResult.records" 
             [latitude]="record.latitude" 
@@ -43,16 +45,3 @@
     </div>
   </div>
 </div>
-
-<!-- 
-<div class="row py-3">
-  <div class="col"></div>
-</div>
-<div class="row">
-  <div class="col-md-9 offset-md-2">
-      <div class="chart-container" style="position: relative; height:40vh; width:80vw">
-        <canvas #canvas id="canvas"></canvas>
-      </div>
-  </div>
-</div>
- -->

@@ -6,3 +6,9 @@
     column-count: 1;
     padding-left: 8px;
 }
+
+.form-group {
+    background: #f6f6f8;
+    padding: 1rem;
+    border-radius: 12px;
+}

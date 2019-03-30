@@ -3,8 +3,8 @@ import { Flight } from '../shared/flight';
 import { Chart } from 'chart.js';
 import { FlightService } from '../services/flight.service';
 import { ActivatedRoute, Params } from '@angular/router';
-import { FlightData } from '../shared/flight-data';
 import { FlightDataResult } from '../shared/flight-data-result';
+import { google } from '@agm/core/services/google-maps-types';
 
 interface ResampleResult {
   data: Array<any>;
@@ -23,6 +23,10 @@ export class FlightDetailComponent implements OnInit {
   flightDataResult: FlightDataResult;
   mapCenterLat: number;
   mapCenterLng: number;
+  departureLat: number;
+  departureLon: number;
+  arrivalLat: number;
+  arrivalLon: number;
 
   id: number;
   chart = undefined;
@@ -42,17 +46,21 @@ export class FlightDetailComponent implements OnInit {
           this.flightService.fetchFlightWithRecords(this.id).subscribe((result: FlightDataResult) => {
             console.log('numRecords: ' + result.numRecords);
             this.flightDataResult = result;
-            this.computeMapCenter();
+            this.computeMapCoords();
           });
         });
       }
     );
   }
 
-  computeMapCenter() {
+  computeMapCoords() {
     const fdr = this.flightDataResult;
     this.mapCenterLat = fdr.minLat + ((fdr.maxLat - fdr.minLat) / 2);
     this.mapCenterLng = fdr.minLng + ((fdr.maxLng - fdr.minLng) / 2);
+    this.departureLat = fdr.records[0].latitude;
+    this.departureLon = fdr.records[0].longitude;
+    this.arrivalLat = fdr.records[fdr.numRecords - 1].latitude;
+    this.arrivalLon = fdr.records[fdr.numRecords - 1].longitude;
   }
 
   loadChart() {
