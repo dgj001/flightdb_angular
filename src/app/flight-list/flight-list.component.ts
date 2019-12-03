@@ -1,8 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Flight } from '../shared/flight';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FlightService } from '../services/flight.service';
-import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { MatTableDataSource } from '@angular/material';
+import { Flight } from '../shared/flight';
 
 @Component({
   selector: 'app-flight-list',
@@ -10,42 +11,43 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./flight-list.component.css']
 })
 export class FlightListComponent implements OnInit, OnDestroy {
-  flights = [];
+
   flightsSub: Subscription;
-  loaded: number;
-  loadedSubs: Subscription;
-  total: number;
-  totalSubs: Subscription;
+  routeSubs: Subscription;
+
+  @Input()
+  showAll: boolean;
+
+  displayedColumns = [ 'departure', 'arrival', 'depDate', 'depTime', 'tailNumber' ];
+  dataSource = new MatTableDataSource<Flight>();
 
   constructor(private flightService: FlightService,
-              private routerService: Router) {
-  }
+              private routerService: Router,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.flightsSub = this.flightService.getFlights().subscribe(
-      flights => this.flights = flights
-    );
-
-    this.loadedSubs = this.flightService.getLoaded().subscribe(
-      count => this.loaded = count
-    );
-
-    this.totalSubs = this.flightService.getTotal().subscribe(
-      count => this.total = count
-    );
+    if (this.showAll) {
+      this.flightsSub = this.flightService.getFlights().subscribe(
+        (flights: Flight[]) => {
+          this.dataSource.data = flights;
+        }
+      );
+    } else {
+      this.routeSubs = this.route.params.subscribe(
+        (params: Params) => {
+          const id = +params.id;
+          this.flightsSub = this.flightService.fetchFlightWithoutRecords(id).subscribe((withoutData: Flight) => {
+            this.dataSource.data = [ withoutData ];
+        });
+      });
+    }
   }
 
   ngOnDestroy() {
     this.flightsSub.unsubscribe();
-    this.loadedSubs.unsubscribe();
-    this.totalSubs.unsubscribe();
   }
 
   onFlightClick(flight: Flight) {
     this.routerService.navigate(['details', flight.id]);
-  }
-
-  onMoreClick() {
-    this.flightService.fetchMoreFlights();
   }
 }

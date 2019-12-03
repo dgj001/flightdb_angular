@@ -1,8 +1,5 @@
-.selected{
-    background-color:#B0BED9
+.mat-row:hover {
+  background-color: aqua;
+  cursor: pointer;
 }
 
-.table-hover > tbody > tr.selected:hover > td,
-.selected > td {
-    background-color: #B0BED9;
-}

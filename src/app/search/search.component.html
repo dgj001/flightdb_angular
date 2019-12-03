@@ -1,9 +1,15 @@
-
-<div class="row">
-    <div class="col-md-10 pt-3">
-        <app-flight-list></app-flight-list>
-    </div>    
-    <div class="col-6 col-sm-4 col-md-2 pt-3 border-right">
-        <app-search-inputs></app-search-inputs>
+<div
+  fxLayout.xs="column" fxLayout.gt-xs="row"
+  fxLayoutGap="10px"
+  fxLayoutAlign="space-around"
+  class="container">
+  <div fxFlex="100%" fxLayout="column">
+    <app-flight-list showAll="true"></app-flight-list>
+    <div fxFlex="100%">
+      <button style="width: 100%" mat-raised-button (click)="onMoreClick()">{{moreLabel}}</button>
     </div>
+  </div>
+  <section fxFlex>
+    <app-search-inputs></app-search-inputs>
+  </section>
 </div>

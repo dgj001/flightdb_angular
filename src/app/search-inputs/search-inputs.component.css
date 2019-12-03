@@ -1,14 +1,10 @@
-.twoColumnList {
-    column-count: 2;
-    padding-left: 8px;
-}
-.oneColumnList {
-    column-count: 1;
-    padding-left: 8px;
+p {
+  margin-left: 1em;
+  text-decoration: underline;
 }
 
-.form-group {
-    background: #f6f6f8;
-    padding: 1rem;
-    border-radius: 12px;
+mat-list {
+  margin-top: -1em;
+  margin-left: 1em;
+  margin-right: 2em;
 }

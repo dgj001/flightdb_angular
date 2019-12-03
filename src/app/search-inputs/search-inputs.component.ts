@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+
 import { Subscription } from 'rxjs';
 import { SearchParamService } from '../services/search-param.service';
-import { TailNumberService } from '../services/tail-number.service';
-import { Condition } from '../shared/condition';
 import { DeparturesService } from '../services/departures.service';
 import { ArrivalsService } from '../services/arrivals.service';
+import { TailNumberService } from '../services/tail-number.service';
+import { Condition } from '../shared/condition';
 
 @Component({
   selector: 'app-search-inputs',
@@ -26,7 +27,8 @@ export class SearchInputsComponent implements OnInit, OnDestroy {
     private searchParamService: SearchParamService,
     private departureService: DeparturesService,
     private arrivalService: ArrivalsService,
-    private tailNumberService: TailNumberService) { }
+    private tailNumberService: TailNumberService
+  ) { }
 
   ngOnInit() {
     this.departureSub = this.departureService.getDepartureConditions()
@@ -50,7 +52,7 @@ export class SearchInputsComponent implements OnInit, OnDestroy {
 
         }
         this.isFirstResponse = false;
-    });
+      });
   }
 
   ngOnDestroy() {
@@ -60,30 +62,33 @@ export class SearchInputsComponent implements OnInit, OnDestroy {
     this.searchParamsSub.unsubscribe();
   }
 
-  onDepartureClick(event: any, condition: Condition) {
-    const target = (<HTMLInputElement>event.target);
-    if (target.checked) {
+  onDepartureClick(checked: boolean, condition: Condition) {
+    if (checked) {
       this.searchParamService.addCondition('departureAirport', condition.fieldValue);
+      condition.value = true;
     } else {
       this.searchParamService.removeCondition('departureAirport', condition.fieldValue);
+      condition.value = false;
     }
   }
 
-  onArrivalClick(event: any, condition: Condition) {
-    const target = (<HTMLInputElement>event.target);
-    if (target.checked) {
+  onArrivalClick(checked: boolean, condition: Condition) {
+    if (checked) {
       this.searchParamService.addCondition('arrivalAirport', condition.fieldValue);
+      condition.value = true;
     } else {
       this.searchParamService.removeCondition('arrivalAirport', condition.fieldValue);
+      condition.value = false;
     }
   }
 
-  onTailNumberClick(event: any, condition: Condition) {
-    const target = (<HTMLInputElement>event.target);
-    if (target.checked) {
+  onTailNumberClick(checked: boolean, condition: Condition) {
+    if (checked) {
       this.searchParamService.addCondition('tailNumber', condition.fieldValue);
+      condition.value = true;
     } else {
       this.searchParamService.removeCondition('tailNumber', condition.fieldValue);
+      condition.value = false;
     }
   }
 }

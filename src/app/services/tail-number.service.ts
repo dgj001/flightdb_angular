@@ -11,7 +11,6 @@ export class TailNumberService {
     private tailNumberSubject = new BehaviorSubject(this.tailConditions);
 
     constructor(private http: HttpClient) {
-        console.log('tail_url: ' + this.tail_url);
         let params: HttpParams = new HttpParams();
         params = params.append('page', '0');
         params = params.append('size', '5');

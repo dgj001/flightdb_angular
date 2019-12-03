@@ -1,34 +1,32 @@
+<mat-table [dataSource]="dataSource">
 
-<div class="row">
-  <div class="col-md-12 text-center" id="row-summary" id="col-summary">
-      <p *ngIf="total > 0">Showing {{loaded}} of {{total}} results</p>
-      <p *ngIf="total === 0">Loading...</p>
-  </div>
-</div>
-<div class="row" id="row-body">
-  <div class="col-md-12" id="col-body">
-    <table class="table table-dark table-hover table-sm table-striped">
-      <thead class="thead-light">
-        <th style="display: none">ID</th>
-        <th>Departure</th>
-        <th>Arrival</th>
-        <th>Date</th>
-        <th>Time</th>
-        <th>Tail Number</th>
-      </thead>
-      <tbody>
-      <tr flight-row *ngFor="let flight of flights" style="cursor: pointer;" (click)="onFlightClick(flight)" [class.selected]="flight.selected">
-        <td style="display: none">{{flight.id}}</td>
-        <td>{{flight.departureAirport}}</td>
-        <td>{{flight.arrivalAirport}}</td>
-        <td>{{flight.startDateTime | date:"yyyy-MM-dd" }}</td>
-        <td>{{flight.startDateTime | date:"HH:mm"}}</td>
-        <td>{{flight.tailNumber}}</td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-<div class="row justify-content-md-center" *ngIf="loaded < total">
-  <button class="btn btn-secondary btn-sm" (click)="onMoreClick()">Load More</button>
-</div>
+  <ng-container matColumnDef="departure">
+    <mat-header-cell *matHeaderCellDef>Departure</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.departureAirport }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="arrival">
+    <mat-header-cell *matHeaderCellDef>Arrival</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.arrivalAirport }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="depDate">
+    <mat-header-cell *matHeaderCellDef>Date</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.startDateTime | date:"yyyy-MM-dd" }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="depTime">
+    <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>Time</mat-header-cell>
+    <mat-cell *matCellDef="let element" fxHide fxShow.gt-xs>{{ element.startDateTime | date:"HH:mm" }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="tailNumber">
+    <mat-header-cell *matHeaderCellDef>Tail #</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.tailNumber }}</mat-cell>
+  </ng-container>
+
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns" (click)="onFlightClick(row)"></mat-row>
+
+</mat-table>

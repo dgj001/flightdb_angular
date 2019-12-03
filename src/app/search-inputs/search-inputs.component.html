@@ -1,48 +1,41 @@
-<form>
-	<div class="form-group">
-		<h5>Departure Airports:</h5>
-		
-		<ul class="oneColumnList">
-			<div class="custom-control custom-checkbox" *ngFor="let condition of departureConditions; let i = index">
-				<input
-					type="checkbox"
-					class="custom-control-input"
-					id="dep_check{{i}}"
-					(click)="onDepartureClick($event, condition)"
-					name="dep_check{{i}}"
-					[(ngModel)]="condition.value">
-				<label class="custom-control-label" for="dep_check{{i}}">{{condition.fieldValue}} ({{condition.count}})</label>
-			</div>
-		</ul>	
-   	</div>
-	<div class="form-group">
-		<h5>Arrival Airports:</h5>		
-		<ul class="oneColumnList">
-			<div class="custom-control custom-checkbox" *ngFor="let condition of arrivalConditions; let i = index">
-				<input
-					type="checkbox"
-					class="custom-control-input"
-					id="arr_check{{i}}"
-					(click)="onArrivalClick($event, condition)"
-					name="arr_check{{i}}"
-					[(ngModel)]="condition.value">
-				<label class="custom-control-label" for="arr_check{{i}}">{{condition.fieldValue}} ({{condition.count}})</label>
-			</div>
-		</ul>	
-	</div>
-	<div class="form-group">
-		<h5>Tail Numbers:</h5>
-		<ul class="oneColumnList">
-			<div class="custom-control custom-checkbox" *ngFor="let condition of tailConditions; let i = index">
-				<input
-					type="checkbox"
-					class="custom-control-input"
-					id="tail_check{{i}}"
-					(click)="onTailNumberClick($event, condition)"
-					name="tail_check{{i}}"
-					[(ngModel)]="condition.value">
-				<label class="custom-control-label" for="tail_check{{i}}">{{condition.fieldValue}} ({{condition.count}})</label>
-			</div>			
-		</ul>
-	</div>
-</form>
+<div fxLayout="column" fxLayoutGap="10px">
+  <div>
+    <p>Departure Airports</p>
+    <mat-list dense fxLayoutGap="10px">
+      <mat-checkbox
+        *ngFor="let condition of departureConditions; let i = index"
+        (change)="onDepartureClick($event.checked, condition)"
+        [checked]="condition.value"
+      >
+        {{condition.fieldValue}} ({{condition.count}})
+      </mat-checkbox>
+    </mat-list>
+  </div>
+
+  <div>
+    <p>Arrival Airports</p>
+    <mat-list desnse fxLayoutGap="10px">
+      <mat-checkbox
+        *ngFor="let condition of arrivalConditions; let i = index"
+        (change)="onArrivalClick($event.checked, condition)"
+        [checked]="condition.value"
+      >
+        {{condition.fieldValue}} ({{condition.count}})
+      </mat-checkbox>
+    </mat-list>
+  </div>
+
+  <div>
+    <p>Tail Numbers</p>
+    <mat-list dense fxLayoutGap="10px">
+      <mat-checkbox
+          *ngFor="let condition of tailConditions; let i = index"
+          (change)="onTailNumberClick($event.checked, condition)"
+          [checked]="condition.value"
+        >
+          {{condition.fieldValue}} ({{condition.count}})
+        </mat-checkbox>
+    </mat-list>
+  </div>
+
+</div>
