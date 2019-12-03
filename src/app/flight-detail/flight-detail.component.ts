@@ -87,7 +87,7 @@ export class FlightDetailComponent implements OnInit {
         responsive: true,
         // maintainAspectRatio: true,
         elements: {
-          point:{
+          point: {
               radius: 0
           }
         },

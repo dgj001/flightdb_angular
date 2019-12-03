@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { SearchComponent } from './search/search.component';
 import { FlightDetailComponent } from './flight-detail/flight-detail.component';
 
-const routes: Routes = [  
+const routes: Routes = [
   { path: '', redirectTo: 'search', pathMatch: 'full' },
   { path: 'search', component: SearchComponent },
   { path: 'details/:id', component: FlightDetailComponent }

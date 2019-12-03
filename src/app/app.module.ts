@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AgmCoreModule } from '@agm/core';
@@ -17,6 +17,7 @@ import { SearchParamService } from './services/search-param.service';
 import { TailNumberService } from './services/tail-number.service';
 import { DeparturesService } from './services/departures.service';
 import { ArrivalsService } from './services/arrivals.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { ArrivalsService } from './services/arrivals.service';
     NgbModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDhIRRvHLhD66D7flOtvfPXqaIcZW_w4Iw'
-    })
+    }),
+    BrowserAnimationsModule
   ],
   providers: [
     FlightService,
