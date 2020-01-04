@@ -18,6 +18,7 @@ import { DeparturesService } from './services/departures.service';
 import { ArrivalsService } from './services/arrivals.service';
 import { TailNumberService } from './services/tail-number.service';
 import { HeaderComponent } from './header/header.component';
+import { SidenavComponent } from './sidenav/sidenav.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { HeaderComponent } from './header/header.component';
     FlightDetailComponent,
     SearchComponent,
     SearchInputsComponent,
-    HeaderComponent
+    HeaderComponent,
+    SidenavComponent
   ],
   imports: [
     BrowserModule,

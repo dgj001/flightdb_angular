@@ -1,3 +1,9 @@
 <mat-toolbar color="primary">
   <div><a routerLink="/">Flight DB</a></div>
+  <div class="spacer"></div>
+  <div fxHide.gt-xs>
+    <button mat-icon-button (click)="onToggleSidenav()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>  
 </mat-toolbar>

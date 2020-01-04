@@ -1,7 +1,7 @@
 <div fxLayout="column" fxLayoutGap="10px">
   <div>
     <p>Departure Airports</p>
-    <mat-list dense fxLayoutGap="10px">
+    <mat-list fxLayout="column">
       <mat-checkbox
         *ngFor="let condition of departureConditions; let i = index"
         (change)="onDepartureClick($event.checked, condition)"
@@ -14,7 +14,7 @@
 
   <div>
     <p>Arrival Airports</p>
-    <mat-list desnse fxLayoutGap="10px">
+    <mat-list fxLayout="column">
       <mat-checkbox
         *ngFor="let condition of arrivalConditions; let i = index"
         (change)="onArrivalClick($event.checked, condition)"
@@ -27,7 +27,7 @@
 
   <div>
     <p>Tail Numbers</p>
-    <mat-list dense fxLayoutGap="10px">
+    <mat-list fxLayout="column">
       <mat-checkbox
           *ngFor="let condition of tailConditions; let i = index"
           (change)="onTailNumberClick($event.checked, condition)"
